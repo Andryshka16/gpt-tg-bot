@@ -23,9 +23,7 @@ bot.command('new', async (ctx) => {
 })
 
 bot.on(message('voice'), async (ctx) => {
-	if (!ctx.session) {
-		ctx.session = initialSession
-	}
+	ctx.session ??= initialSession
 
 	const link = (await ctx.telegram.getFileLink(ctx.message.voice.file_id)).href
 	const userId = await ctx.message.from.id
@@ -53,9 +51,8 @@ bot.on(message('voice'), async (ctx) => {
 })
 
 bot.on(message('text'), async (ctx) => {
-	if (!ctx.session) {
-		ctx.session = initialSession
-	}
+	ctx.session ??= initialSession
+
 	try {
 		const request = { role: 'user', content: ctx.message.text }
 		ctx.session.messages.push(request)
