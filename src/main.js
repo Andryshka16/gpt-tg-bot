@@ -53,8 +53,9 @@ bot.on(message('voice'), async (ctx) => {
 })
 
 bot.on(message('text'), async (ctx) => {
-	ctx.session ??= initialSession
-
+	if (!ctx.session) {
+		ctx.session = initialSession
+	}
 	try {
 		const request = { role: 'user', content: ctx.message.text }
 		ctx.session.messages.push(request)
