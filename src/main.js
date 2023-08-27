@@ -36,6 +36,7 @@ bot.on(message('voice'), async (ctx) => {
 		ctx.session.messages.push(request)
 	} catch (error) {
 		await ctx.reply(errorMessages.requestError, replyOptions)
+		console.log(error);
 	}
 
 	try {
@@ -44,6 +45,7 @@ bot.on(message('voice'), async (ctx) => {
 		await ctx.reply(response.content)
 	} catch (error) {
 		await ctx.reply(errorMessages.responseError, replyOptions)
+		console.log(error);
 	}
 
 	await unlink(oggPath)
@@ -58,6 +60,8 @@ bot.on(message('text'), async (ctx) => {
 		ctx.session.messages.push(request)
 	} catch (error) {
 		await ctx.reply(errorMessages.requestError, replyOptions)
+		console.log(error);
+
 	}
 
 	try {
@@ -66,7 +70,10 @@ bot.on(message('text'), async (ctx) => {
 		await ctx.reply(response.content)
 	} catch (error) {
 		await ctx.reply(errorMessages.responseError, replyOptions)
+		console.log(error);
 	}
 })
 
-bot.launch()
+bot.launch().then(()=>{
+	console.log('Bot is launched!');
+})
